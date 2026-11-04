@@ -1,0 +1,45 @@
+appId: dev.cooprompt.desktop
+productName: CooPrompt
+copyright: CooPrompt
+directories:
+  output: release
+  buildResources: build
+files:
+  - out/**
+  - package.json
+extraResources:
+  - from: build/engines
+    to: engines
+  - from: resources/update-helper.sh
+    to: update-helper.sh
+asar: true
+npmRebuild: false
+afterPack: scripts/after-pack.cjs
+mac:
+  target:
+    - target: dmg
+      arch: [arm64]
+    - target: zip
+      arch: [arm64]
+  category: public.app-category.developer-tools
+  icon: build/icon.icns
+  # No Apple certificate: scripts/sign.cjs signs with the self-signed identity in ~/.cooprompt-signing
+  # (so installed copies only accept updates from the same publisher), or ad hoc without it.
+  identity: '-'
+  sign: scripts/sign.cjs
+  hardenedRuntime: false
+  gatekeeperAssess: false
+  extendInfo:
+    LSMinimumSystemVersion: '13.0'
+dmg:
+  title: CooPrompt
+  writeUpdateInfo: false
+win:
+  icon: build/icon.ico
+  target:
+    - target: nsis
+      arch: [x64]
+nsis:
+  oneClick: false
+  perMachine: false
+  allowToChangeInstallationDirectory: true

@@ -1,0 +1,177 @@
+@import 'tailwindcss';
+@import 'highlight.js/styles/github-dark.css';
+
+@theme {
+  --color-app: #1b2838;
+  --color-side: #171a21;
+  --color-panel: #223442;
+  --color-raised: #2a475e;
+  --color-raised-hover: #365c77;
+  --color-inset: #162331;
+  --color-line: #405b70;
+  --color-line-soft: #30495b;
+  --color-ink: #e4edf3;
+  --color-dim: #b0c3d1;
+  --color-faint: #94a9b8;
+  --color-accent: #66c0f4;
+  --color-accent-hover: #8cd3f7;
+  /* The accent is light: pair bg-accent with text-on-accent. */
+  --color-on-accent: #081b29;
+  --color-ok: #74b37a;
+  --color-warn: #ca8b4d;
+  --color-bad: #dd6f6f;
+  /* Team-only messages, which no agent reads: kept apart from the accent, the color of writing to the agent. */
+  --color-team: #a6d189;
+  --color-team-hover: #c0e7a6;
+  --color-on-team: #0a2416;
+  --font-sans: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Inter', system-ui, sans-serif;
+  --font-mono: ui-monospace, 'SF Mono', Menlo, Monaco, monospace;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--color-app);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  font-size: 14px;
+  -webkit-font-smoothing: antialiased;
+  user-select: none;
+}
+
+.selectable,
+.prose-cooprompt,
+textarea,
+input,
+pre,
+code {
+  user-select: text;
+}
+
+.drag {
+  -webkit-app-region: drag;
+}
+
+.no-drag,
+button,
+input,
+textarea,
+select,
+a {
+  -webkit-app-region: no-drag;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-line);
+  border-radius: 8px;
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.prose-cooprompt {
+  line-height: 1.6;
+  word-wrap: break-word;
+}
+.prose-cooprompt > :first-child {
+  margin-top: 0;
+}
+.prose-cooprompt > :last-child {
+  margin-bottom: 0;
+}
+.prose-cooprompt p,
+.prose-cooprompt ul,
+.prose-cooprompt ol,
+.prose-cooprompt pre,
+.prose-cooprompt table,
+.prose-cooprompt blockquote {
+  margin: 0.6em 0;
+}
+.prose-cooprompt ul {
+  list-style: disc;
+  padding-left: 1.4em;
+}
+.prose-cooprompt ol {
+  list-style: decimal;
+  padding-left: 1.4em;
+}
+.prose-cooprompt li {
+  margin: 0.2em 0;
+}
+.prose-cooprompt h1,
+.prose-cooprompt h2,
+.prose-cooprompt h3 {
+  font-weight: 650;
+  margin: 1em 0 0.4em;
+}
+.prose-cooprompt h1 {
+  font-size: 1.35em;
+}
+.prose-cooprompt h2 {
+  font-size: 1.2em;
+}
+.prose-cooprompt h3 {
+  font-size: 1.05em;
+}
+.prose-cooprompt a {
+  color: var(--color-accent);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.prose-cooprompt code:not(pre code) {
+  font-family: var(--font-mono);
+  font-size: 0.88em;
+  background: var(--color-raised);
+  padding: 0.12em 0.36em;
+  border-radius: 5px;
+}
+.prose-cooprompt pre {
+  background: var(--color-side);
+  border: 1px solid var(--color-line-soft);
+  border-radius: 10px;
+  padding: 12px 14px;
+  overflow-x: auto;
+  font-size: 12.5px;
+}
+.prose-cooprompt pre code {
+  font-family: var(--font-mono);
+  background: transparent !important;
+  padding: 0 !important;
+}
+.prose-cooprompt table {
+  border-collapse: collapse;
+  font-size: 0.92em;
+}
+.prose-cooprompt th,
+.prose-cooprompt td {
+  border: 1px solid var(--color-line);
+  padding: 4px 8px;
+}
+.prose-cooprompt blockquote {
+  border-left: 3px solid var(--color-line);
+  padding-left: 12px;
+  color: var(--color-dim);
+}
+
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
+}
+.caret::after {
+  content: '▍';
+  margin-left: 2px;
+  color: var(--color-accent);
+  animation: blink 1s steps(1) infinite;
+}

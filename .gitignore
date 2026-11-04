@@ -1,0 +1,10 @@
+node_modules/
+out/
+dist/
+release/
+apps/desktop/build/engines/
+coverage/
+*.log
+.env*
+!.env.example
+.DS_Store

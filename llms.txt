@@ -1,0 +1,66 @@
+# CooPrompt
+
+> CooPrompt is a desktop client (Electron) for the Claude Code, Codex and Cursor coding-agent engines, built for teams. Several people work with the agent in the same chat: each request runs on the requester's own computer with that person's credentials, while the conversation, the agent's tool activity, permission requests and a synced working folder are shared live through a small team server (Fastify, WebSocket, node:sqlite) that any CooPrompt can host. Windows support is experimental; see the README for platform limitations.
+
+- Monorepo with npm workspaces, TypeScript in strict mode, ES modules, Node 24: `packages/protocol` (the wire contract), `apps/server` (the team server), `apps/desktop` (Electron 45, React 19, Tailwind 4).
+- The server never receives model credentials; secrets stay in each computer's encrypted store, protected by the operating system.
+- Interface strings are English source text with a Spanish dictionary; the server always speaks English.
+- Commands: `npm install`, `npm run dev`, `npm run typecheck`, `npm test`, `npm run server`, `npm run dist`.
+
+## Documentation
+
+- [README](README.md): what CooPrompt is, features, installation, hosting, development quick start, repository layout
+- [Documentation map](docs/README.md): which page to read for each role
+- [Usage](docs/usage.md): end-user guide and troubleshooting
+- [Multiplayer](docs/multiplayer.md): chat types, invitations, turns, multitask, team-only messages, permission modes, approvals, cancelling and interrupting, shared workspaces
+- [Automations](docs/automations.md): scheduled unattended runs on the owner's computer, schedules and cron, permissions, missed runs, inbox
+- [Connectors](docs/connectors.md): MCP connectors, importing from other apps, what each engine receives, OAuth, catalog
+- [Security](docs/security.md): credentials, what the server stores, redaction, accounts and sessions, network exposure, attachments, signing and update verification
+- [Team server](docs/server.md): reference for hosting options, environment variables, data directory and endpoints
+- [Deployment](docs/deployment.md): playbooks for an embedded host and an always-on server, security checklist, shipping builds
+- [Distribution](docs/distribution.md): building and signing the macOS app, versions, the signing identity, installation and updates
+- [Development](docs/development.md): setup, scripts, isolated instances, tests, internationalization rules
+
+## Architecture and code
+
+- [Architecture](docs/architecture.md): components, where state lives, how a turn flows, context handoff, session continuity, workspace sync, attachments
+- [Codebase map](docs/codebase-map.md): the file that owns each responsibility, main flows, where to start for common changes
+- [Glossary](docs/glossary.md): domain terms and their code identifiers
+- [Decisions](docs/decisions.md): key design decisions with context and consequences
+
+## Agent instructions
+
+- [AGENTS.md](AGENTS.md): repository-wide commands, conventions and documentation pointers
+- [packages/protocol/AGENTS.md](packages/protocol/AGENTS.md): rules for changing the wire contract
+- [apps/server/AGENTS.md](apps/server/AGENTS.md): rules and tests for the team server
+- [apps/desktop/AGENTS.md](apps/desktop/AGENTS.md): rules, tests and pitfalls for the Electron app
+- [deploy/AGENTS.md](deploy/AGENTS.md): placeholder for an organization-specific deployment playbook
+
+## Source entry points
+
+- [packages/protocol/src/index.ts](packages/protocol/src/index.ts): shared types, REST payloads and the WebSocket message unions
+- [apps/server/src/cli.ts](apps/server/src/cli.ts): standalone server entry point and its environment variables
+- [apps/server/src/server.ts](apps/server/src/server.ts): `createCooPromptServer`, wiring of the HTTP routes and the WebSocket hub
+- [apps/server/src/routes.ts](apps/server/src/routes.ts): HTTP API for accounts, chats, turns and invitations
+- [apps/server/src/hub.ts](apps/server/src/hub.ts): realtime hub, presence and the per-chat turn queue, with multitask turns
+- [apps/server/src/files.ts](apps/server/src/files.ts): shared workspace file API
+- [apps/server/src/automations.ts](apps/server/src/automations.ts): automations and their scheduler (missed runs, catch-ups, time limits)
+- [apps/desktop/src/main/index.ts](apps/desktop/src/main/index.ts): Electron entry point and IPC channel
+- [apps/desktop/src/main/core.ts](apps/desktop/src/main/core.ts): app core and the IPC method handlers
+- [apps/desktop/src/shared/types.ts](apps/desktop/src/shared/types.ts): the `CooPromptApi` IPC table and app types
+- [apps/desktop/src/main/runner/runner.ts](apps/desktop/src/main/runner/runner.ts): turn execution on the requester's computer
+- [apps/desktop/src/main/engines/](apps/desktop/src/main/engines/): Claude Agent SDK and Codex SDK adapters, the Cursor CLI's ACP client, model provider presets
+- [apps/desktop/src/main/connectors.ts](apps/desktop/src/main/connectors.ts): MCP connectors and OAuth
+- [apps/desktop/src/main/sync/workspace-sync.ts](apps/desktop/src/main/sync/workspace-sync.ts): two-way shared workspace mirror
+- [apps/desktop/src/main/host.ts](apps/desktop/src/main/host.ts): embedded team server and Cloudflare quick tunnel
+- [apps/desktop/src/main/tunnel.ts](apps/desktop/src/main/tunnel.ts): the quick tunnel's health checks and replacement
+- [apps/desktop/src/main/updater.ts](apps/desktop/src/main/updater.ts): updates from the team server, download verification and the swap helper ([update-helper.sh](apps/desktop/resources/update-helper.sh))
+- [apps/desktop/src/renderer/src/App.tsx](apps/desktop/src/renderer/src/App.tsx): React UI root
+
+## Optional
+
+- [apps/server/test/collaboration.test.ts](apps/server/test/collaboration.test.ts): end-to-end server behavior with real HTTP and WebSocket clients
+- [apps/desktop/test/workspace-sync.test.ts](apps/desktop/test/workspace-sync.test.ts): shared workspace sync between two mirrors
+- [apps/desktop/test/connector-sources.test.ts](apps/desktop/test/connector-sources.test.ts): reading other apps' MCP definitions and planning per engine
+- [apps/server/.env.example](apps/server/.env.example): example standalone server configuration
+- [apps/desktop/src/shared/i18n-es.ts](apps/desktop/src/shared/i18n-es.ts): Spanish dictionary

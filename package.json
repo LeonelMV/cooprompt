@@ -1,0 +1,29 @@
+{
+  "name": "cooprompt",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Cliente multijugador para agentes de código (Claude Code / Codex) con chats compartidos, workspace sincronizado y MCP.",
+  "type": "module",
+  "workspaces": [
+    "packages/*",
+    "apps/*"
+  ],
+  "engines": {
+    "node": ">=24.11"
+  },
+  "scripts": {
+    "dev": "npm run dev -w @cooprompt/desktop",
+    "server": "npm run start -w @cooprompt/server",
+    "server:dev": "npm run dev -w @cooprompt/server",
+    "share": "node scripts/share.mjs",
+    "typecheck": "npm run typecheck --workspaces --if-present",
+    "test": "npm run test --workspaces --if-present",
+    "dist": "npm run dist -w @cooprompt/desktop"
+  },
+  "devDependencies": {
+    "@types/node": "^24.19.2",
+    "tsx": "^4.23.15",
+    "typescript": "^7.0.2",
+    "vitest": "^5.0.5"
+  }
+}
