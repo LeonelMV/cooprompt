@@ -21,6 +21,8 @@ Secrets are kept by [`src/main/secrets.ts`](../apps/desktop/src/main/secrets.ts)
 
 Non-secret settings (server URL, device id, profiles without keys, connectors without secrets, chat preferences) are in `settings.json`. API keys and connector secrets are never sent back to the UI process: it only learns whether one is stored or the names of a connector's variables. The Codex, Claude Code and Cursor sign-in profiles use the respective CLI's own sign-in. CooPrompt asks each CLI for account status and never reads those credentials itself; account details appear only in the local settings.
 
+The repository's `.gitignore` excludes local environment files (except `.env.example`), common credential files, private-key and signing files, and the default CooPrompt data and attachment directories. These rules reduce accidental commits; they do not detect secrets written into other files or remove files already tracked by Git. Review staged changes and use secret-scanning push protection when hosting the repository.
+
 Nothing secret is part of a turn request: the server receives only the engine, a profile id, a model name, the permission mode, the reasoning effort and a display label ([`TurnConfig`](../packages/protocol/src/index.ts)). The executing device resolves the actual credentials locally.
 
 ## What the team server stores

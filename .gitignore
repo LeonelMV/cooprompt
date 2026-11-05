@@ -8,3 +8,25 @@ coverage/
 .env*
 !.env.example
 .DS_Store
+
+# Local credentials and private data
+.cooprompt/
+.cooprompt-server/
+.cooprompt-signing/
+.ssh/
+.aws/
+.npmrc
+.pypirc
+secrets.json
+credentials.json
+token.json
+tokens.json
+p12.pass
+id_rsa
+id_dsa
+id_ecdsa
+id_ed25519
+*.key
+*.pem
+*.p12
+*.pfx
