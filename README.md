@@ -4,7 +4,7 @@
 
 **Better prompts. Better work. Together.**
 
-[English](#english) · [Español](#español) · [Project website](https://leonelmv.github.io/cooprompt-site/)
+[English](#english) · [Español](#español) · [Project website](https://leonelmv.github.io/cooprompt/)
 
 ## English
 
