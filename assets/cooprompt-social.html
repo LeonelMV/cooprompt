@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>CooPrompt social preview</title>
+  <style>
+    * { box-sizing: border-box; }
+    html, body { width: 1200px; height: 630px; margin: 0; }
+    body { overflow: hidden; color: #edf5fa; font-family: "Segoe UI", Arial, sans-serif; background: #101c2b; }
+    .canvas { position: relative; width: 1200px; height: 630px; padding: 66px 72px; overflow: hidden; background: radial-gradient(ellipse at 84% 12%, #315873 0%, transparent 42%), radial-gradient(ellipse at 50% 120%, #203c55 0%, transparent 54%), #101c2b; }
+    .canvas::before, .canvas::after { content: ""; position: absolute; border: 1px solid #568bb13d; border-radius: 36px; transform: rotate(-11deg); }
+    .canvas::before { width: 420px; height: 420px; right: 26px; top: 116px; }
+    .canvas::after { width: 365px; height: 365px; right: 56px; top: 144px; }
+    .copy { position: relative; z-index: 1; max-width: 680px; }
+    .label { display: inline-flex; align-items: center; gap: 10px; padding: 9px 14px; border: 1px solid #5085a3; border-radius: 999px; color: #93d1f4; font-size: 15px; font-weight: 700; letter-spacing: .13em; text-transform: uppercase; }
+    .dot { width: 8px; height: 8px; background: #66c0f4; border-radius: 50%; }
+    h1 { margin: 28px 0 4px; font-size: 82px; line-height: 1; letter-spacing: -.055em; font-weight: 750; }
+    h2 { margin: 20px 0 0; font-size: 39px; line-height: 1.18; letter-spacing: -.035em; font-weight: 600; }
+    h2 span { color: #79c7f5; }
+    p { max-width: 580px; margin: 23px 0 0; color: #bbcedb; font-size: 23px; line-height: 1.45; }
+    .logo { position: absolute; z-index: 1; right: 91px; top: 155px; width: 300px; height: 300px; filter: drop-shadow(0 26px 36px #050a1080); }
+    .footer { position: absolute; z-index: 1; left: 72px; right: 72px; bottom: 57px; display: flex; justify-content: space-between; align-items: flex-end; gap: 30px; color: #a9c3d2; font-size: 16px; }
+    .footer strong { color: #e3f3fd; font-size: 19px; font-weight: 600; }
+    .platforms { text-align: right; line-height: 1.5; }
+  </style>
+</head>
+<body>
+  <main class="canvas">
+    <div class="copy">
+      <div class="label"><span class="dot"></span>Collaborative coding agents</div>
+      <h1>CooPrompt</h1>
+      <h2>Better prompts. Better work.<br><span>Together.</span></h2>
+      <p>Bring teammates and coding agents into one shared workspace.</p>
+    </div>
+    <img class="logo" src="../apps/desktop/build/icon.png" alt="CooPrompt logo">
+    <div class="footer">
+      <strong>github.com/LeonelMV/cooprompt</strong>
+      <span class="platforms">Desktop app · macOS on Apple silicon<br>Windows support is experimental</span>
+    </div>
+  </main>
+</body>
+</html>
